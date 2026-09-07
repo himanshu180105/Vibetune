@@ -1,0 +1,68 @@
+<div class="player-bar" id="playerBar">
+  <!-- Current Track Info -->
+  <div class="player-track-info">
+    <div class="player-cover" id="playerCover">
+      <img src="/images/default-cover.svg" alt="Cover" id="playerCoverImg">
+    </div>
+    <div class="player-track-details">
+      <p class="player-track-title" id="playerTrackTitle">No track playing</p>
+      <p class="player-track-artist" id="playerTrackArtist">—</p>
+    </div>
+    <button class="player-like-btn" id="playerLikeBtn" title="Like">
+      <i class="far fa-heart"></i>
+    </button>
+  </div>
+
+  <!-- Player Controls -->
+  <div class="player-controls">
+    <div class="player-buttons">
+      <button class="player-btn" id="shuffleBtn" title="Shuffle">
+        <i class="fas fa-random"></i>
+      </button>
+      <button class="player-btn" id="prevBtn" title="Previous">
+        <i class="fas fa-step-backward"></i>
+      </button>
+      <button class="player-btn player-btn-play" id="playPauseBtn" title="Play">
+        <i class="fas fa-play" id="playPauseIcon"></i>
+      </button>
+      <button class="player-btn" id="nextBtn" title="Next">
+        <i class="fas fa-step-forward"></i>
+      </button>
+      <button class="player-btn" id="repeatBtn" title="Repeat">
+        <i class="fas fa-redo"></i>
+      </button>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="player-progress">
+      <span class="player-time" id="currentTime">0:00</span>
+      <div class="progress-bar-container" id="progressBarContainer">
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-bar-fill" id="progressBarFill"></div>
+          <div class="progress-bar-thumb" id="progressBarThumb"></div>
+        </div>
+      </div>
+      <span class="player-time" id="totalTime">0:00</span>
+    </div>
+  </div>
+
+  <!-- Volume & Extra Controls -->
+  <div class="player-extra">
+    <button class="player-btn" id="queueBtn" title="Queue">
+      <i class="fas fa-list"></i>
+    </button>
+    <div class="player-volume">
+      <button class="player-btn" id="volumeBtn" title="Volume">
+        <i class="fas fa-volume-up" id="volumeIcon"></i>
+      </button>
+      <div class="volume-bar-container" id="volumeBarContainer">
+        <div class="volume-bar" id="volumeBar">
+          <div class="volume-bar-fill" id="volumeBarFill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden Audio Element -->
+  <audio id="audioElement" preload="auto"></audio>
+</div>

@@ -1,0 +1,143 @@
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-inner">
+    <!-- Logo -->
+    <div class="sidebar-logo">
+      <a href="/">
+        <i class="fas fa-compact-disc fa-spin-hover"></i>
+        <span>VibeTune</span>
+      </a>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="/" class="nav-link" data-page="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="/search" class="nav-link" data-page="search">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+          </a>
+        </li>
+        <li>
+          <a href="/browse" class="nav-link" data-page="browse">
+            <i class="fas fa-compass"></i>
+            <span>Browse</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Library Section -->
+    <div class="sidebar-library">
+      <div class="library-header">
+        <h3>
+          <i class="fas fa-book-open"></i>
+          <span>Your Library</span>
+        </h3>
+      </div>
+
+      <% if (currentUser) { %>
+        <ul>
+          <li>
+            <a href="/library" class="nav-link" data-page="library">
+              <i class="fas fa-music"></i>
+              <span>My Library</span>
+            </a>
+          </li>
+          <li>
+            <a href="/library/liked" class="nav-link" data-page="liked">
+              <i class="fas fa-heart"></i>
+              <span>Liked Songs</span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Create Playlist Button -->
+        <button class="btn-create-playlist" id="btnCreatePlaylist" onclick="document.getElementById('createPlaylistModal').classList.add('active')">
+          <i class="fas fa-plus-square"></i>
+          <span>Create Playlist</span>
+        </button>
+      <% } else { %>
+        <div class="sidebar-login-prompt">
+          <p>Log in to create playlists and save your favorite songs.</p>
+          <a href="/auth/login" class="btn btn-sm btn-accent">Log In</a>
+        </div>
+      <% } %>
+    </div>
+
+    <% if (currentUser && currentUser.role === 'admin') { %>
+      <!-- Admin Section -->
+      <div class="sidebar-admin">
+        <div class="library-header">
+          <h3>
+            <i class="fas fa-shield-alt"></i>
+            <span>Admin</span>
+          </h3>
+        </div>
+        <ul>
+          <li>
+            <a href="/admin" class="nav-link" data-page="admin">
+              <i class="fas fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/songs" class="nav-link">
+              <i class="fas fa-compact-disc"></i>
+              <span>Manage Songs</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/artists" class="nav-link">
+              <i class="fas fa-user-music"></i>
+              <span>Manage Artists</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/albums" class="nav-link">
+              <i class="fas fa-album-collection"></i>
+              <span>Manage Albums</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    <% } %>
+  </div>
+</aside>
+
+<!-- Mobile Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Create Playlist Modal -->
+<% if (currentUser) { %>
+<div class="modal-overlay" id="createPlaylistModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Create Playlist</h3>
+      <button class="modal-close" onclick="document.getElementById('createPlaylistModal').classList.remove('active')">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <form action="/playlists/create" method="POST" class="modal-body">
+      <div class="form-group">
+        <label for="playlistName">Playlist Name</label>
+        <input type="text" id="playlistName" name="name" placeholder="My Awesome Playlist" required>
+      </div>
+      <div class="form-group">
+        <label for="playlistDescription">Description (optional)</label>
+        <textarea id="playlistDescription" name="description" placeholder="Add a description..." rows="3"></textarea>
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" id="playlistPublic" name="isPublic" checked>
+        <label for="playlistPublic">Make playlist public</label>
+      </div>
+      <button type="submit" class="btn btn-accent btn-full">Create</button>
+    </form>
+  </div>
+</div>
+<% } %>

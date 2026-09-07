@@ -1,0 +1,26 @@
+<div class="song-card"
+     data-song-id="<%= song._id %>"
+     data-song-title="<%= song.title %>"
+     data-song-artist="<%= song.artist ? song.artist.name : 'Unknown' %>"
+     data-song-artist-id="<%= song.artist ? song.artist._id : '' %>"
+     data-song-cover="<%= song.coverUrl %>"
+     data-song-audio="<%= song.audioUrl %>"
+     data-song-duration="<%= song.duration %>"
+>
+  <div class="song-card-cover">
+    <img src="<%= song.coverUrl %>" alt="<%= song.title %>" loading="lazy">
+    <button class="song-card-play-btn play-btn-trigger" aria-label="Play <%= song.title %>">
+      <i class="fas fa-play"></i>
+    </button>
+  </div>
+  <div class="song-card-info">
+    <h4 class="song-card-title"><a href="/songs/<%= song._id %>"><%= song.title %></a></h4>
+    <p class="song-card-artist">
+      <% if (song.artist) { %>
+        <a href="/artists/<%= song.artist._id %>"><%= song.artist.name %></a>
+      <% } else { %>
+        Unknown Artist
+      <% } %>
+    </p>
+  </div>
+</div>

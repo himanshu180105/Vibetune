@@ -1,0 +1,15 @@
+<a href="/playlists/<%= playlist._id %>" class="playlist-card">
+  <div class="playlist-card-cover">
+    <% if (playlist.songs && playlist.songs.length > 0 && playlist.songs[0].coverUrl) { %>
+      <img src="<%= playlist.songs[0].coverUrl %>" alt="<%= playlist.name %>" loading="lazy">
+    <% } else { %>
+      <div class="playlist-card-placeholder">
+        <i class="fas fa-music"></i>
+      </div>
+    <% } %>
+  </div>
+  <div class="playlist-card-info">
+    <h4 class="playlist-card-title"><%= playlist.name %></h4>
+    <p class="playlist-card-meta"><%= playlist.songs ? playlist.songs.length : 0 %> songs</p>
+  </div>
+</a>

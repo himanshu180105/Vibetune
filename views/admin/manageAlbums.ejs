@@ -1,0 +1,47 @@
+<section class="admin-section">
+  <div class="admin-header">
+    <h1><i class="fas fa-compact-disc"></i> Manage Albums</h1>
+    <a href="/admin/albums/add" class="btn btn-accent"><i class="fas fa-plus"></i> Add Album</a>
+  </div>
+
+  <% if (albums.length > 0) { %>
+    <div class="admin-table-wrapper">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Cover</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Year</th>
+            <th>Songs</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% albums.forEach(album => { %>
+            <tr>
+              <td><img src="<%= album.coverUrl %>" alt="<%= album.title %>" class="admin-table-cover"></td>
+              <td><strong><%= album.title %></strong></td>
+              <td><%= album.artist ? album.artist.name : 'Unknown' %></td>
+              <td><%= album.releaseYear %></td>
+              <td><%= album.songs ? album.songs.length : 0 %></td>
+              <td class="admin-table-actions">
+                <a href="/admin/albums/edit/<%= album._id %>" class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></a>
+                <form action="/admin/albums/<%= album._id %>?_method=DELETE" method="POST" class="inline-form"
+                      onsubmit="return confirm('Delete this album?')">
+                  <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <div class="empty-state">
+      <i class="fas fa-compact-disc"></i>
+      <h2>No albums yet</h2>
+      <a href="/admin/albums/add" class="btn btn-accent">Add Your First Album</a>
+    </div>
+  <% } %>
+</section>

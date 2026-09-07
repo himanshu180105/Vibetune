@@ -1,0 +1,71 @@
+<section class="content-section">
+  <div class="section-header">
+    <h1>Browse</h1>
+    <p class="section-subtitle">Explore music by genre</p>
+  </div>
+
+  <!-- Genre Cards -->
+  <div class="genre-grid genre-grid-large">
+    <% const genreColors = ['#E13300', '#8400E7', '#1E3264', '#E8115B', '#148A08', '#E1118B', '#BC5900', '#608108', '#503750', '#0D73EC', '#477D95', '#BA5D07']; %>
+    <% genres.forEach((genre, index) => { %>
+      <a href="/browse?genre=<%= encodeURIComponent(genre) %>"
+         class="genre-card <%= selectedGenre === genre ? 'active' : '' %>"
+         style="background: <%= genreColors[index % genreColors.length] %>;">
+        <h3><%= genre %></h3>
+      </a>
+    <% }); %>
+  </div>
+</section>
+
+<!-- Songs filtered by genre -->
+<% if (selectedGenre) { %>
+<section class="content-section">
+  <div class="section-header">
+    <h2><%= selectedGenre %></h2>
+    <p class="section-subtitle"><%= songs.length %> song<%= songs.length !== 1 ? 's' : '' %></p>
+  </div>
+
+  <% if (songs.length > 0) { %>
+    <div class="song-list">
+      <% songs.forEach((song, index) => { %>
+        <div class="song-row"
+             data-song-id="<%= song._id %>"
+             data-song-title="<%= song.title %>"
+             data-song-artist="<%= song.artist ? song.artist.name : 'Unknown' %>"
+             data-song-artist-id="<%= song.artist ? song.artist._id : '' %>"
+             data-song-cover="<%= song.coverUrl %>"
+             data-song-audio="<%= song.audioUrl %>"
+             data-song-duration="<%= song.duration %>"
+        >
+          <span class="song-row-index"><%= index + 1 %></span>
+          <div class="song-row-cover">
+            <img src="<%= song.coverUrl %>" alt="<%= song.title %>" loading="lazy">
+            <button class="song-row-play play-btn-trigger"><i class="fas fa-play"></i></button>
+          </div>
+          <div class="song-row-info">
+            <p class="song-row-title"><a href="/songs/<%= song._id %>"><%= song.title %></a></p>
+            <p class="song-row-artist">
+              <% if (song.artist) { %>
+                <a href="/artists/<%= song.artist._id %>"><%= song.artist.name %></a>
+              <% } %>
+            </p>
+          </div>
+          <span class="song-row-duration"><%= song.formattedDuration %></span>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <div class="empty-state-sm">
+      <p>No songs found in this genre.</p>
+    </div>
+  <% } %>
+</section>
+<% } %>
+
+<% if (genres.length === 0) { %>
+<section class="empty-state">
+  <i class="fas fa-compass"></i>
+  <h2>Nothing to browse yet</h2>
+  <p>Genres will appear here once songs are added.</p>
+</section>
+<% } %>

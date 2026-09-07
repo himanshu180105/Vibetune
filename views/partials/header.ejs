@@ -1,0 +1,55 @@
+<header class="top-header">
+  <!-- Mobile Menu Toggle -->
+  <button class="hamburger" id="hamburgerBtn">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Search Bar -->
+  <div class="header-search">
+    <form action="/search" method="GET" class="search-form">
+      <i class="fas fa-search search-icon"></i>
+      <input
+        type="text"
+        name="q"
+        id="searchInput"
+        placeholder="What do you want to listen to?"
+        autocomplete="off"
+        value="<%= typeof query !== 'undefined' ? query : '' %>"
+      >
+      <!-- Live Search Results Dropdown -->
+      <div class="search-dropdown" id="searchDropdown"></div>
+    </form>
+  </div>
+
+  <!-- User Menu -->
+  <div class="header-user">
+    <% if (currentUser) { %>
+      <div class="user-dropdown" id="userDropdown">
+        <button class="user-dropdown-btn" id="userDropdownBtn">
+          <div class="user-avatar">
+            <% if (currentUser.avatar) { %>
+              <img src="<%= currentUser.avatar %>" alt="<%= currentUser.name %>">
+            <% } else { %>
+              <i class="fas fa-user"></i>
+            <% } %>
+          </div>
+          <span class="user-name"><%= currentUser.name %></span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="user-dropdown-menu" id="userDropdownMenu">
+          <a href="/library"><i class="fas fa-music"></i> My Library</a>
+          <% if (currentUser.role === 'admin') { %>
+            <a href="/admin"><i class="fas fa-tachometer-alt"></i> Admin Panel</a>
+          <% } %>
+          <hr>
+          <a href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="header-auth-buttons">
+        <a href="/auth/register" class="btn btn-ghost">Sign Up</a>
+        <a href="/auth/login" class="btn btn-accent">Log In</a>
+      </div>
+    <% } %>
+  </div>
+</header>

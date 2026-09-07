@@ -1,0 +1,84 @@
+<section class="detail-page">
+  <div class="detail-hero"
+       data-song-id="<%= song._id %>"
+       data-song-title="<%= song.title %>"
+       data-song-artist="<%= song.artist ? song.artist.name : 'Unknown' %>"
+       data-song-artist-id="<%= song.artist ? song.artist._id : '' %>"
+       data-song-cover="<%= song.coverUrl %>"
+       data-song-audio="<%= song.audioUrl %>"
+       data-song-duration="<%= song.duration %>"
+  >
+    <div class="detail-cover">
+      <img src="<%= song.coverUrl %>" alt="<%= song.title %>">
+    </div>
+    <div class="detail-info">
+      <span class="detail-type">Song</span>
+      <h1><%= song.title %></h1>
+      <div class="detail-meta">
+        <% if (song.artist) { %>
+          <a href="/artists/<%= song.artist._id %>" class="detail-artist-link">
+            <img src="<%= song.artist.image %>" alt="<%= song.artist.name %>" class="detail-artist-avatar">
+            <strong><%= song.artist.name %></strong>
+          </a>
+        <% } %>
+        <% if (song.album) { %>
+          <span class="detail-dot">·</span>
+          <a href="/albums/<%= song.album._id %>"><%= song.album.title %></a>
+        <% } %>
+        <span class="detail-dot">·</span>
+        <span><%= song.formattedDuration %></span>
+        <span class="detail-dot">·</span>
+        <span><%= song.plays.toLocaleString() %> plays</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="detail-actions">
+    <button class="btn btn-accent btn-lg play-btn-trigger" data-song-id="<%= song._id %>">
+      <i class="fas fa-play"></i> Play
+    </button>
+
+    <% if (currentUser) { %>
+      <button class="btn btn-icon like-btn" data-song-id="<%= song._id %>"
+              data-liked="<%= currentUser.likedSongs && currentUser.likedSongs.includes(song._id.toString()) ? 'true' : 'false' %>">
+        <i class="<%= currentUser.likedSongs && currentUser.likedSongs.includes(song._id.toString()) ? 'fas' : 'far' %> fa-heart"></i>
+      </button>
+
+      <% if (userPlaylists.length > 0) { %>
+        <div class="dropdown">
+          <button class="btn btn-icon dropdown-toggle" title="Add to playlist">
+            <i class="fas fa-plus-circle"></i>
+          </button>
+          <div class="dropdown-menu">
+            <% userPlaylists.forEach(pl => { %>
+              <button class="dropdown-item add-to-playlist-btn"
+                      data-playlist-id="<%= pl._id %>"
+                      data-song-id="<%= song._id %>">
+                <i class="fas fa-music"></i> <%= pl.name %>
+              </button>
+            <% }); %>
+          </div>
+        </div>
+      <% } %>
+    <% } %>
+  </div>
+
+  <!-- Song Details -->
+  <div class="detail-body">
+    <div class="detail-stats">
+      <div class="stat-item">
+        <span class="stat-label">Genre</span>
+        <span class="stat-value"><%= song.genre %></span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Duration</span>
+        <span class="stat-value"><%= song.formattedDuration %></span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Plays</span>
+        <span class="stat-value"><%= song.plays.toLocaleString() %></span>
+      </div>
+    </div>
+  </div>
+</section>

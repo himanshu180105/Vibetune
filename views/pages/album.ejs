@@ -1,0 +1,64 @@
+<section class="detail-page">
+  <div class="detail-hero">
+    <div class="detail-cover">
+      <img src="<%= album.coverUrl %>" alt="<%= album.title %>">
+    </div>
+    <div class="detail-info">
+      <span class="detail-type">Album</span>
+      <h1><%= album.title %></h1>
+      <div class="detail-meta">
+        <% if (album.artist) { %>
+          <a href="/artists/<%= album.artist._id %>" class="detail-artist-link">
+            <img src="<%= album.artist.image %>" alt="<%= album.artist.name %>" class="detail-artist-avatar">
+            <strong><%= album.artist.name %></strong>
+          </a>
+        <% } %>
+        <span class="detail-dot">·</span>
+        <span><%= album.releaseYear %></span>
+        <span class="detail-dot">·</span>
+        <span><%= album.songs ? album.songs.length : 0 %> songs</span>
+        <% if (album.genre) { %>
+          <span class="detail-dot">·</span>
+          <span><%= album.genre %></span>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tracklist -->
+  <% if (album.songs && album.songs.length > 0) { %>
+    <div class="song-list album-tracklist">
+      <div class="song-list-header">
+        <span class="song-list-header-index">#</span>
+        <span class="song-list-header-title">Title</span>
+        <span class="song-list-header-duration"><i class="far fa-clock"></i></span>
+      </div>
+      <% album.songs.forEach((song, index) => { %>
+        <div class="song-row"
+             data-song-id="<%= song._id %>"
+             data-song-title="<%= song.title %>"
+             data-song-artist="<%= album.artist ? album.artist.name : 'Unknown' %>"
+             data-song-artist-id="<%= album.artist ? album.artist._id : '' %>"
+             data-song-cover="<%= album.coverUrl %>"
+             data-song-audio="<%= song.audioUrl %>"
+             data-song-duration="<%= song.duration %>"
+        >
+          <span class="song-row-index"><%= index + 1 %></span>
+          <div class="song-row-info">
+            <p class="song-row-title"><a href="/songs/<%= song._id %>"><%= song.title %></a></p>
+            <p class="song-row-artist">
+              <% if (song.artist) { %>
+                <a href="/artists/<%= song.artist._id || (album.artist ? album.artist._id : '') %>"><%= song.artist.name || (album.artist ? album.artist.name : 'Unknown') %></a>
+              <% } %>
+            </p>
+          </div>
+          <span class="song-row-duration"><%= song.formattedDuration %></span>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <div class="empty-state-sm">
+      <p>No songs in this album yet.</p>
+    </div>
+  <% } %>
+</section>

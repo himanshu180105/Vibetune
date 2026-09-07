@@ -1,0 +1,42 @@
+<div class="auth-page">
+  <div class="auth-container">
+    <div class="auth-logo">
+      <i class="fas fa-compact-disc"></i>
+      <h1>VibeTune</h1>
+    </div>
+
+    <div class="auth-card">
+      <h2>Sign up for free</h2>
+
+      <form action="/auth/register" method="POST" class="auth-form">
+        <div class="form-group">
+          <label for="name">What should we call you?</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name" required minlength="2" maxlength="50">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="name@example.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Create a password</label>
+          <input type="password" id="password" name="password" placeholder="Create a password" required minlength="6" autocomplete="new-password">
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required minlength="6" autocomplete="new-password">
+        </div>
+
+        <button type="submit" class="btn btn-accent btn-full btn-lg">Sign Up</button>
+      </form>
+
+      <div class="auth-divider">
+        <span>Already have an account?</span>
+      </div>
+
+      <a href="/auth/login" class="btn btn-outline btn-full">Log In Instead</a>
+    </div>
+  </div>
+</div>

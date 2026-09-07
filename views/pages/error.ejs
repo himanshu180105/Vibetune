@@ -1,0 +1,8 @@
+<div class="error-page">
+  <div class="error-content">
+    <h1><%= typeof statusCode !== 'undefined' ? statusCode : 500 %></h1>
+    <h2>Something went wrong</h2>
+    <p><%= typeof message !== 'undefined' ? message : 'An unexpected error occurred.' %></p>
+    <a href="/" class="btn btn-accent">Go Home</a>
+  </div>
+</div>

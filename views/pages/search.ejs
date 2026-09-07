@@ -1,0 +1,95 @@
+<section class="content-section">
+  <div class="section-header">
+    <h1>Search</h1>
+  </div>
+
+  <% if (query) { %>
+    <p class="search-results-info">Results for "<strong><%= query %></strong>"</p>
+
+    <!-- Songs Results -->
+    <% if (results.songs.length > 0) { %>
+      <div class="search-section">
+        <h2>Songs</h2>
+        <div class="song-list">
+          <% results.songs.forEach((song, index) => { %>
+            <div class="song-row"
+                 data-song-id="<%= song._id %>"
+                 data-song-title="<%= song.title %>"
+                 data-song-artist="<%= song.artist ? song.artist.name : 'Unknown' %>"
+                 data-song-artist-id="<%= song.artist ? song.artist._id : '' %>"
+                 data-song-cover="<%= song.coverUrl %>"
+                 data-song-audio="<%= song.audioUrl %>"
+                 data-song-duration="<%= song.duration %>"
+            >
+              <span class="song-row-index"><%= index + 1 %></span>
+              <div class="song-row-cover">
+                <img src="<%= song.coverUrl %>" alt="<%= song.title %>" loading="lazy">
+                <button class="song-row-play play-btn-trigger"><i class="fas fa-play"></i></button>
+              </div>
+              <div class="song-row-info">
+                <p class="song-row-title"><a href="/songs/<%= song._id %>"><%= song.title %></a></p>
+                <p class="song-row-artist">
+                  <% if (song.artist) { %>
+                    <a href="/artists/<%= song.artist._id %>"><%= song.artist.name %></a>
+                  <% } %>
+                </p>
+              </div>
+              <span class="song-row-duration"><%= song.formattedDuration %></span>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    <% } %>
+
+    <!-- Artists Results -->
+    <% if (results.artists.length > 0) { %>
+      <div class="search-section">
+        <h2>Artists</h2>
+        <div class="card-grid">
+          <% results.artists.forEach(artist => { %>
+            <a href="/artists/<%= artist._id %>" class="artist-card">
+              <div class="artist-card-image">
+                <img src="<%= artist.image %>" alt="<%= artist.name %>" loading="lazy">
+              </div>
+              <h4><%= artist.name %></h4>
+              <p>Artist</p>
+            </a>
+          <% }); %>
+        </div>
+      </div>
+    <% } %>
+
+    <!-- Albums Results -->
+    <% if (results.albums.length > 0) { %>
+      <div class="search-section">
+        <h2>Albums</h2>
+        <div class="card-grid">
+          <% results.albums.forEach(album => { %>
+            <a href="/albums/<%= album._id %>" class="album-card">
+              <div class="album-card-cover">
+                <img src="<%= album.coverUrl %>" alt="<%= album.title %>" loading="lazy">
+              </div>
+              <h4><%= album.title %></h4>
+              <p><%= album.artist ? album.artist.name : 'Unknown' %></p>
+            </a>
+          <% }); %>
+        </div>
+      </div>
+    <% } %>
+
+    <!-- No Results -->
+    <% if (results.songs.length === 0 && results.artists.length === 0 && results.albums.length === 0) { %>
+      <div class="empty-state-sm">
+        <i class="fas fa-search"></i>
+        <p>No results found for "<strong><%= query %></strong>"</p>
+        <p class="text-muted">Try different keywords or check for typos.</p>
+      </div>
+    <% } %>
+  <% } else { %>
+    <div class="search-placeholder">
+      <i class="fas fa-search"></i>
+      <h2>Search for songs, artists, or albums</h2>
+      <p>Use the search bar above to find your favorite music.</p>
+    </div>
+  <% } %>
+</section>

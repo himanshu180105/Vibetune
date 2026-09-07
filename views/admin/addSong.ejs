@@ -1,0 +1,72 @@
+<section class="admin-section">
+  <div class="admin-header">
+    <h1><i class="fas fa-plus-circle"></i> Add Song</h1>
+    <a href="/admin/songs" class="btn btn-ghost"><i class="fas fa-arrow-left"></i> Back</a>
+  </div>
+
+  <form action="/admin/songs/add" method="POST" enctype="multipart/form-data" class="admin-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="title">Song Title *</label>
+        <input type="text" id="title" name="title" placeholder="Enter song title" required>
+      </div>
+      <div class="form-group">
+        <label for="genre">Genre</label>
+        <input type="text" id="genre" name="genre" placeholder="e.g. Pop, Rock, Hip-Hop">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="artist">Artist *</label>
+        <select id="artist" name="artist" required>
+          <option value="">Select Artist</option>
+          <% artists.forEach(artist => { %>
+            <option value="<%= artist._id %>"><%= artist.name %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="album">Album (optional)</label>
+        <select id="album" name="album">
+          <option value="">No Album</option>
+          <% albums.forEach(album => { %>
+            <option value="<%= album._id %>"><%= album.title %> (<%= album.artist ? album.artist.name : '' %>)</option>
+          <% }); %>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="duration">Duration (seconds)</label>
+      <input type="number" id="duration" name="duration" placeholder="e.g. 210" min="0">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="audio">Audio File * (MP3, WAV, OGG)</label>
+        <div class="file-upload">
+          <input type="file" id="audio" name="audio" accept="audio/*" required>
+          <div class="file-upload-label">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>Choose audio file</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cover">Cover Image (optional)</label>
+        <div class="file-upload">
+          <input type="file" id="cover" name="cover" accept="image/*">
+          <div class="file-upload-label">
+            <i class="fas fa-image"></i>
+            <span>Choose cover image</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-accent btn-lg">
+      <i class="fas fa-upload"></i> Upload Song
+    </button>
+  </form>
+</section>

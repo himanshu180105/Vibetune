@@ -1,0 +1,39 @@
+<section class="content-section library-page">
+  <div class="section-header">
+    <h1>Your Library</h1>
+  </div>
+
+  <!-- Liked Songs Quick Card -->
+  <a href="/library/liked" class="liked-songs-banner">
+    <div class="liked-songs-banner-bg">
+      <i class="fas fa-heart"></i>
+    </div>
+    <div class="liked-songs-banner-info">
+      <h3>Liked Songs</h3>
+      <p><%= likedSongs.length %> song<%= likedSongs.length !== 1 ? 's' : '' %></p>
+    </div>
+  </a>
+
+  <!-- User Playlists -->
+  <div class="library-section">
+    <div class="section-header">
+      <h2>Your Playlists</h2>
+      <button class="btn btn-sm btn-accent" onclick="document.getElementById('createPlaylistModal').classList.add('active')">
+        <i class="fas fa-plus"></i> New Playlist
+      </button>
+    </div>
+
+    <% if (playlists.length > 0) { %>
+      <div class="card-grid">
+        <% playlists.forEach(playlist => { %>
+          <%- include('../partials/playlistCard', { playlist }) %>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="empty-state-sm">
+        <i class="fas fa-list-music"></i>
+        <p>No playlists yet. Create your first one!</p>
+      </div>
+    <% } %>
+  </div>
+</section>

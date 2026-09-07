@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VibeTune — Stream your favorite music. Discover new artists, create playlists, and enjoy unlimited music.">
+  <title><%= typeof title !== 'undefined' ? title : 'VibeTune — Music Player' %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <%- style %>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <!-- Top Header -->
+      <%- include('../partials/header') %>
+
+      <!-- Flash Messages -->
+      <%- include('../partials/flash') %>
+
+      <!-- Page Content -->
+      <main class="main-content">
+        <%- body %>
+      </main>
+    </div>
+
+    <!-- Persistent Player Bar -->
+    <%- include('../partials/player') %>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/player.js"></script>
+  <script src="/js/search.js"></script>
+  <%- script %>
+</body>
+</html>

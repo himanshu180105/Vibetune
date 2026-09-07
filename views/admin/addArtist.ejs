@@ -1,0 +1,38 @@
+<section class="admin-section">
+  <div class="admin-header">
+    <h1><i class="fas fa-user-plus"></i> Add Artist</h1>
+    <a href="/admin/artists" class="btn btn-ghost"><i class="fas fa-arrow-left"></i> Back</a>
+  </div>
+
+  <form action="/admin/artists/add" method="POST" enctype="multipart/form-data" class="admin-form">
+    <div class="form-group">
+      <label for="name">Artist Name *</label>
+      <input type="text" id="name" name="name" placeholder="Enter artist name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bio">Bio</label>
+      <textarea id="bio" name="bio" placeholder="Write a short bio..." rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="genres">Genres (comma-separated)</label>
+      <input type="text" id="genres" name="genres" placeholder="e.g. Pop, R&B, Hip-Hop">
+    </div>
+
+    <div class="form-group">
+      <label for="image">Artist Image</label>
+      <div class="file-upload">
+        <input type="file" id="image" name="image" accept="image/*">
+        <div class="file-upload-label">
+          <i class="fas fa-image"></i>
+          <span>Choose image</span>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-accent btn-lg">
+      <i class="fas fa-plus"></i> Add Artist
+    </button>
+  </form>
+</section>
